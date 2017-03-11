@@ -33,6 +33,12 @@ sbit PowerLED				=	P4 ^ 0;	//电源指示灯
 sbit TimeLED				=	P4 ^ 2;	//定时灯
 sbit PurificationLED		=	P4 ^ 1;	//净化灯
 
+#define	WheelLedPort			P1
+sbit RightLED				=	P1 ^ 0;
+sbit UpLED					=	P1 ^ 1;
+sbit LeftLED				=	P1 ^ 2;
+sbit DownLED				=	P1 ^ 3;
+
 
 
 

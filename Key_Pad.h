@@ -11,6 +11,19 @@
 
 #include 	"STC15F2K60S2.h"
 #include	"Buzzer.h"
+#include	"Port_Define.h"
+
+
+#define		OFF		0
+#define		ON		1
+#define		LOW		2
+#define		MID		3
+#define		HIGH	4
+
+
+//void State_Init(void);
+
+
 
 
 

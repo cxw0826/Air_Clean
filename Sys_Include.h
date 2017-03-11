@@ -11,6 +11,9 @@
 #include 	"STC15F2K60S2.h"
 #include	"Buzzer.h"
 #include	"Initial.h"
+#include	"Key_Pad.h"
+
+
 
 
 

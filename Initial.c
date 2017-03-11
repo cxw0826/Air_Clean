@@ -48,10 +48,10 @@ void Initial_Port(void)
 	    //	P1.7		P1.6		P1.5		P1.4		P1.3		P1.2		P1.1		P1.0
 	    //	KEY_DAT0										DOWN_LED	LEFT_LED	UP_LED		RIGHT_LED
 	    P1 	 = 0x00;	//0000	0000
-	    P2 	 = 0x00;	//0000	0000
-	    P3   = 0x00;	//0000	0000
-	    P4   = 0x00;	//0000	0000
-	    P5   = 0x00;	//0000	0000
+	    P2 	 = 0xFF;	//0000	0000
+	    P3   = 0xFF;	//0000	0000
+	    P4   = 0xBF;	//0000	0000
+	    P5   = 0xFF;	//0000	0000
 }
 
 //初始化定时器
@@ -69,19 +69,19 @@ void Initial_Timers(void)
 	    ET0 	= 	1;				//允许定时器0中断
 
 	//Timer1Init:			
-	    AUXR 	&= 	0xBF;			//定时器1工作模式为12分频
-	    TMOD	&= 	0x0F;			//定时器1为16位自动重装定时器
-	    TL1 	= 	Time_1ms;		//装载低八位
-	    TH1 	= 	Time_1ms>>8;	//装载高八位
-	    TF1 	= 	0;				//清除定时器1标志位
-	    TR1 	= 	1;				//开启定时器1	
-	    ET1 	= 	1;				//允许定时器1中断
+	    //AUXR 	&= 	0xBF;			//定时器1工作模式为12分频
+	    //TMOD	&= 	0x0F;			//定时器1为16位自动重装定时器
+	    //TL1 	= 	Time_1ms;		//装载低八位
+	    //TH1 	= 	Time_1ms>>8;	//装载高八位
+	    //TF1 	= 	0;				//清除定时器1标志位
+	    //TR1 	= 	1;				//开启定时器1	
+	    //ET1 	= 	1;				//允许定时器1中断
 	    
 	//Timer2Init:			
-	    AUXR 	&= 	0xEF;			//不允许定时器2运行
-	    IE2 	&= 	0xBF;			//禁止定时器4产生中断
+	    //AUXR 	&= 	0xEF;			//不允许定时器2运行
+	    //IE2 	&= 	0xBF;			//禁止定时器4产生中断
 	    
-	    //EA 		= 	1;				//打开总中断
+	    EA 		= 	1;				//打开总中断
 }
 
 //初始化中断
@@ -104,14 +104,14 @@ void Initial_EX_INT(void)
 	//exint4:
 	    INT_CLKO 	&= 	0xBF;		//禁止外部中断4
 
-	    //EA 			= 	1;			//打开总中断
+	    EA 			= 	1;			//打开总中断
 }
 
 //初始化函数入口
 void Initial_Sys(void)
 {
 	Initial_Port();
-	Initial_Timers();
 	Initial_EX_INT();
+	Initial_Timers();
 }
 
