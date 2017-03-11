@@ -47,7 +47,7 @@ void Initial_Port(void)
 	    P0	 = 0x00;	//0000	0000
 	    //	P1.7		P1.6		P1.5		P1.4		P1.3		P1.2		P1.1		P1.0
 	    //	KEY_DAT0										DOWN_LED	LEFT_LED	UP_LED		RIGHT_LED
-	    P1 	 = 0x00;	//0000	0000
+	    P1 	 = 0xFF;	//0000	0000
 	    P2 	 = 0xFF;	//0000	0000
 	    P3   = 0xFF;	//0000	0000
 	    P4   = 0xBF;	//0000	0000

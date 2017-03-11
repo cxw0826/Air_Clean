@@ -17,7 +17,6 @@
 void main()
 {
 	Initial_Sys();
-	//State_Init();
 	while(1)
 	{
 	}

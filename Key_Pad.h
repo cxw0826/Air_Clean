@@ -14,14 +14,23 @@
 #include	"Port_Define.h"
 
 
-#define		OFF		0
-#define		ON		1
-#define		LOW		2
-#define		MID		3
-#define		HIGH	4
+#define		OFF				 0
+#define		ON				 1
+
+#define		LED_ON 			 0
+#define		LED_OFF			 1
+
+#define		MotorUp 		 0
+#define		MotorDown 		 1
+
+#define		PortOn			 0
+#define		PortOff			 1
+
+#define		LOW				 1
+#define		MID				 2
+#define		HIGH			 3
 
 
-//void State_Init(void);
 
 
 
