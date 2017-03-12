@@ -12,6 +12,7 @@
 #include 	"STC15F2K60S2.h"
 #include	"Buzzer.h"
 #include	"Port_Define.h"
+#include	"Uart.h"
 
 
 #define		OFF				 0

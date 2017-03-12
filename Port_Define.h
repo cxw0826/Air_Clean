@@ -42,6 +42,8 @@ sbit UpLED					=	P1 ^ 1;
 sbit LeftLED				=	P1 ^ 2;
 sbit DownLED				=	P1 ^ 3;
 
+sbit IntKey					=	P3 ^ 6;
+
 
 
 

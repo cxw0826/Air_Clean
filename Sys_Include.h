@@ -12,6 +12,7 @@
 #include	"Buzzer.h"
 #include	"Initial.h"
 #include	"Key_Pad.h"
+#include	"Uart.h"
 
 
 
