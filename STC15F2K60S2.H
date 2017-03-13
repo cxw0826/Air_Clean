@@ -5,6 +5,10 @@
 
 //包含本头文件后,不用另外再包含"REG51.H"
 
+typedef unsigned char 		uchar;
+typedef unsigned int 		uint;
+typedef unsigned long int 	ulint;
+
 //内核特殊功能寄存器        // 复位值   描述
 sfr ACC         =   0xE0;   //0000,0000 累加器Accumulator
 sfr B           =   0xF0;   //0000,0000 B寄存器

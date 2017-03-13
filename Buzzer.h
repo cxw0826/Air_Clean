@@ -15,7 +15,7 @@
 sbit Buzzer			=	P4^6;
 
 void Beep();
-void Delay_Nms(unsigned char Nms);
+void Delay_Nms(uint Nms);
 
 
 

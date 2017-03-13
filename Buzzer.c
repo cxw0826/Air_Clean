@@ -8,9 +8,9 @@
 
 //系统计数延时函数
 //15*20*40 = 12 000 /12 000 000 = 1/1000 约等于1毫秒
-void Delay_Nms(unsigned char Nms)   
+void Delay_Nms(uint	Nms)   
 {
-    unsigned char 	i,j,k;
+    uchar 	i,j,k;
     while(Nms--)
     {
       for(i=15;i>0;i--) 

@@ -18,12 +18,9 @@ void main()
 {
 	Initial_Sys();
 	Init_Uart1();
-
 	DebugMSG("系统初始化完成\r\n");
-	
 	while(1)
 	{
-		
 	}
 }
 

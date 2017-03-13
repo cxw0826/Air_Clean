@@ -9,8 +9,6 @@
 
 
 
-typedef unsigned char uchar;
-typedef unsigned int uint;
 
 //继电器控制列表
 #define RelayPort				P2;		//继电器端口
@@ -42,7 +40,7 @@ sbit UpLED					=	P1 ^ 1;
 sbit LeftLED				=	P1 ^ 2;
 sbit DownLED				=	P1 ^ 3;
 
-sbit IntKey					=	P3 ^ 6;
+sbit Move_Detect_Port		=	P2 ^ 5;	//移动侦测端口
 
 
 
