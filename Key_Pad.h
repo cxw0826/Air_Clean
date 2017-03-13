@@ -30,10 +30,10 @@
 #define		MID				 	2
 #define		HIGH			 	3
 
-#define		Smart_Time_High		1000*60*5	
-#define		Smart_Time_Low		1000*60*5	
+#define		Smart_Time_High		1000*10	
+#define		Smart_Time_Low		1000*5	
 
-#define		Boot_Idle_Time	1000*60*1
+#define		Boot_Idle_Time		1000*5
 
 //定义state_struct结构体
 struct state_struct

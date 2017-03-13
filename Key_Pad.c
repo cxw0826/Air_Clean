@@ -16,7 +16,7 @@
 #define		MoveKey			   	0x80
 
 //声明并初始化系统状态结构体
-struct state_struct Sys_State = {0};
+struct state_struct Sys_State = {OFF};
 
 //初始化全部LED函数
 void Init_Led(uchar	state)
@@ -31,7 +31,7 @@ void Init_Led(uchar	state)
 			UpLED 				= LED_ON;
 			LeftLED 			= LED_ON;
 			DownLED 			= LED_ON;
-			SmartLED			= LED_ON;
+			//SmartLED			= LED_ON;
 			MoveLED				= LED_ON;
 		}
 	else
@@ -44,10 +44,13 @@ void Init_Led(uchar	state)
 			UpLED 				= LED_OFF;
 			LeftLED 			= LED_OFF;
 			DownLED 			= LED_OFF;
-			SmartLED			= LED_OFF;
+			//SmartLED			= LED_OFF;
 			MoveLED				= LED_OFF;
 		}
 }
+
+
+
 
 //照明端口控制函数
 void Light_Port_Ctrl(uchar state)
@@ -223,7 +226,7 @@ void	Smart_Function(void)
 							Smart_Time_Counter	=	0;
 							Sys_State.Pwr_State		=	OFF;		//关机
 						}
-					else	if(Smart_Time_Counter	>=	Smart_Time_Low )	
+					else	if(Smart_Time_Counter	>=	Smart_Time_Low && Smart_Time_Counter	<=	Smart_Time_High)	
 						{
 							if(Move_Detect_Port)	//检测到移动
 								{
@@ -231,7 +234,10 @@ void	Smart_Function(void)
 									Smart_Time_Counter	=	0;		//重新计数
 								}
 							else
-								Sys_State.Fan_State		=	LOW;	//一定时间没有检测到人进入低速状态
+								{
+									Smart_Time_Counter++;
+									Sys_State.Fan_State		=	LOW;	//一定时间没有检测到人进入低速状态
+								}
 						}
 					else	
 						Smart_Time_Counter++;
@@ -251,7 +257,7 @@ void	Move_Detect_Function(void)
 				{
 					if(Move_Time_Counter >= Boot_Idle_Time)	//延时到稳定时间
 						{
-							while(Move_Detect_Port)	//触发开机
+							if(Move_Detect_Port)	//触发开机
 								{
 									Move_Time_Counter = 0;
 									Sys_State.Pwr_State = ON;
@@ -263,8 +269,6 @@ void	Move_Detect_Function(void)
 									Init_Led(ON);
 								}
 						}
-					else	if(Move_Time_Counter >=( sizeof(ulint) - 1))	//长时间待机计数溢出
-						Move_Time_Counter = Boot_Idle_Time + 1;	//从触发有效开始继续计数
 					else
 						Move_Time_Counter++;
 				}
@@ -341,26 +345,35 @@ void	Fan_Led_Speed_Fun(void)
 				}
 			}
 		}
-	else
+}
+
+//开关机状态控制函数
+void Sys_State_Ctrl(void)
+{
+	if(Sys_State.Pwr_State ==  OFF)
 		{
-			Sys_State.Pwr_State =  OFF;
 			Sys_State.Fan_State =  OFF;
 			Sys_State.Smart_State = OFF;
 			Sys_State.Timer_State = OFF;
+			TimeLED 			= LED_OFF;
+			SmartLED			= LED_OFF;
+			//Sys_State.Move_State = ON;
 			WheelLedPort 		|= 0x0F;
 			PurificationPort_Ctrl(OFF);
 			Light_Port_Ctrl(OFF);
 			FanSpeed_Ctrl(OFF);
 			Init_Led(OFF);
 		}
+		
 }
 
-//定时器0中断函数
+//定时器0中断函数,1ms中断一次
 void Timer0() interrupt 1 using 1
 {
 	Smart_Function();
 	Move_Detect_Function();
 	Fan_Led_Speed_Fun();
+	Sys_State_Ctrl();
 }
 	
 

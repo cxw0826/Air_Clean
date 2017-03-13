@@ -15,7 +15,7 @@ void Timer1() interrupt 3 using 1
 			if(Sleep_Time_Counter > Time_10Sec )
 				{
 					Sleep_Time_Counter = 0;
-					TimeLED		=	LED_OFF;
+					//TimeLED		=	LED_OFF;
 					Sys_State.Pwr_State = OFF;
 				}
 			else
