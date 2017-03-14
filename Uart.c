@@ -7,11 +7,8 @@
 
 #include		"Uart.h"
 
-bit busy;
-#define		DataACC			ACC
-#define		ParityACC		P
-#define		Uart1Buff		SBUF
 
+bit busy;
 void SendData(unsigned char Data)
 {
 	while(busy);
@@ -36,7 +33,7 @@ void SendData(unsigned char Data)
 	Uart1Buff	=	DataACC;
 }
 
-void DebugMSG(char *Dat)
+void DebugMSG(char *Dat,...)
 {
 	while(*Dat)
 		{
@@ -69,8 +66,8 @@ void Init_Uart1(void)
 		SCON	=	0xD2;
 	#endif
 		EA		=	0;
-		T2L		=	(65536 - (Sys_Clk/4/BaudRate));
-		T2H		=	(65536 - (Sys_Clk/4/BaudRate))>>8;
+		T2L		=	(65536 - (Sys_Clock/4/BaudRate));
+		T2H		=	(65536 - (Sys_Clock/4/BaudRate))>>8;
 		//AUXR	=	0x14;
 		//AUXR	|=	0x01;
 		AUXR |= 0x04;		//定时器2时钟为Fosc,即1T

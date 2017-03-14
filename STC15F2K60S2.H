@@ -5,9 +5,14 @@
 
 //包含本头文件后,不用另外再包含"REG51.H"
 
+//用户定义区域---------------------------------------------------
 typedef unsigned char 		uchar;
 typedef unsigned int 		uint;
-typedef unsigned long int 	ulint;
+typedef unsigned long int	ulint;
+#define			Sys_Clock		12000000L
+
+
+//----------------------------------------------用户定义区域结束
 
 //内核特殊功能寄存器        // 复位值   描述
 sfr ACC         =   0xE0;   //0000,0000 累加器Accumulator

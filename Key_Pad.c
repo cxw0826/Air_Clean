@@ -61,21 +61,7 @@ void Light_Port_Ctrl(uchar state)
 		LightPort 		= PortOff;
 }
 
-//上升下降电机控制函数
-/*void UpDown_Motor_Ctrl(unsigned char state)
-{
-	if(state)
-		{
-			MotorUpPort 		= PortOn;
-			MotorDownPort 	= PortOff;
-		}
-	else
-		{
-			MotorUpPort 		= PortOn;
-			MotorDownPort 	= PortOff;
-		}
-}
-*/
+
 
 //净化端口控制函数
 void PurificationPort_Ctrl(uchar state)
@@ -115,39 +101,52 @@ void FanSpeed_Ctrl(uchar state)
 		}
 }
 
+//电机上升限位中断
+void	Motor_Up_Int() interrupt 0
+{
+	MotorUpPort 		= PortOff;
+	MotorDownPort 	= PortOff;
+}
+//电机下降限位中断
+void Motor_Down_Int() interrupt 2
+{
+	MotorUpPort 		= PortOff;
+	MotorDownPort 	= PortOff;
+}
+
 //按钮中断函数
 void	Key_Int()	interrupt	10
 {
 	switch(P1 & 0xE0)
 	{
-    case PowerKey:
-		Beep();	
-		if(Sys_State.Pwr_State)
-			{
-				Sys_State.Pwr_State =  OFF;
-				Sys_State.Fan_State =  OFF;
-				Sys_State.Smart_State = OFF;
-				Sys_State.Timer_State = OFF;
-				Sys_State.Move_State = ON;
-				WheelLedPort 		|= 0x0F;
-				PurificationPort_Ctrl(OFF);
-				Light_Port_Ctrl(OFF);
-				FanSpeed_Ctrl(OFF);
-				Init_Led(OFF);
-			}
-		else
-			{
-				Sys_State.Pwr_State =  ON; 
-				Sys_State.Fan_State =  MID;
-				Sys_State.Move_State = OFF;
-				Sys_State.Timer_State = OFF;
-				WheelLedPort 		&= 0xF0; 
-				PurificationPort_Ctrl(ON);
-				Light_Port_Ctrl(ON);
-				FanSpeed_Ctrl(MID);
-				Init_Led(ON);
-			}
-		break;
+    		case PowerKey:
+			Beep();	
+			if(Sys_State.Pwr_State)
+				{
+					Sys_State.Pwr_State =  OFF;
+					Sys_State.Fan_State =  OFF;
+					Sys_State.Smart_State = OFF;
+					Sys_State.Timer_State = OFF;
+					Sys_State.Move_State = ON;
+					WheelLedPort 		|= 0x0F;
+					PurificationPort_Ctrl(OFF);
+					Light_Port_Ctrl(OFF);
+					FanSpeed_Ctrl(OFF);
+					Init_Led(OFF);
+				}
+			else
+				{
+					Sys_State.Pwr_State =  ON; 
+					Sys_State.Fan_State =  MID;
+					Sys_State.Move_State = OFF;
+					Sys_State.Timer_State = OFF;
+					WheelLedPort 		&= 0xF0; 
+					PurificationPort_Ctrl(ON);
+					Light_Port_Ctrl(ON);
+					FanSpeed_Ctrl(MID);
+					Init_Led(ON);
+				}
+			break;
    /* case LightKey:
 		if(Sys_State.Pwr_State)
 			{
@@ -157,59 +156,59 @@ void	Key_Int()	interrupt	10
 					Sys_State.Fan_State = OFF;
 			}
 		break;*/
-    case LightKey:
-		if(Sys_State.Pwr_State)
-			{
-				Beep();	
-				LightPort = ~LightPort;
-				LightLED  = LightPort;
-			}
-		break;
-    case SmartKey:
-		if(Sys_State.Pwr_State)
-			{
-				Beep();	
-				if(Sys_State.Smart_State)
-					Sys_State.Smart_State = OFF;
-				else
-					Sys_State.Smart_State = ON;
-				SmartLED  = ~SmartLED;
-			}
-		break;
-    case TimeKey:
-		if(Sys_State.Pwr_State)
-			{
-				Beep();	
-				if(Sys_State.Timer_State)
-					Sys_State.Timer_State = OFF;
-				else
-					Sys_State.Timer_State = ON;
-				TimeLED = ~TimeLED;
-			}
-		break;
-    case PurificationKey:
-		if(Sys_State.Pwr_State)
-			{
-				Beep();	
-				PurificationPort = ~PurificationPort;
-				PurificationLED  = PurificationPort;
-			}
-		break;
-    case MoveKey:
-		/*if(Sys_State.Pwr_State == OFF)
-			{
-				Beep();	
-				if(Sys_State.Move_State)
-					Sys_State.Move_State= OFF;
-				else
-					Sys_State.Move_State = ON;
-				MoveLED = ~MoveLED;
-			}*/
-		break;
-    case ReserveKey:
-		break;
-	default:
-		break;
+    		case LightKey:
+			if(Sys_State.Pwr_State)
+				{
+					Beep();	
+					LightPort = ~LightPort;
+					LightLED  = LightPort;
+				}
+			break;
+    		case SmartKey:
+			if(Sys_State.Pwr_State)
+				{
+					Beep();	
+					if(Sys_State.Smart_State)
+						Sys_State.Smart_State = OFF;
+					else
+						Sys_State.Smart_State = ON;
+					SmartLED  = ~SmartLED;
+				}
+			break;
+    		case TimeKey:
+			if(Sys_State.Pwr_State)
+				{
+					Beep();	
+					if(Sys_State.Timer_State)
+						Sys_State.Timer_State = OFF;
+					else
+						Sys_State.Timer_State = ON;
+					TimeLED = ~TimeLED;
+				}
+			break;
+    		case PurificationKey:
+			if(Sys_State.Pwr_State)
+				{
+					Beep();	
+					PurificationPort = ~PurificationPort;
+					PurificationLED  = PurificationPort;
+				}
+			break;
+   		 case MoveKey:
+			/*if(Sys_State.Pwr_State == OFF)
+				{
+					Beep();	
+					if(Sys_State.Move_State)
+						Sys_State.Move_State= OFF;
+					else
+						Sys_State.Move_State = ON;
+					MoveLED = ~MoveLED;
+				}*/
+			break;
+    		case ReserveKey:
+			break;
+		default:
+			break;
 	}
 }
 
@@ -367,6 +366,29 @@ void Sys_State_Ctrl(void)
 		
 }
 
+//定时关机功能
+ulint	Sleep_Time_Counter = 0;
+void	Timer_Shutdown(void)
+{
+	if(Sys_State.Timer_State)
+		{
+			if(Sleep_Time_Counter > Time_10Sec )
+				{
+					Sleep_Time_Counter = 0;
+					//TimeLED		=	LED_OFF;
+					Sys_State.Pwr_State = OFF;
+				}
+			else
+				Sleep_Time_Counter ++;
+		}
+	else
+		{
+			Sleep_Time_Counter = 0;
+		}
+
+}
+
+
 //定时器0中断函数,1ms中断一次
 void Timer0() interrupt 1 using 1
 {
@@ -374,6 +396,7 @@ void Timer0() interrupt 1 using 1
 	Move_Detect_Function();
 	Fan_Led_Speed_Fun();
 	Sys_State_Ctrl();
+	Timer_Shutdown();
 }
 	
 

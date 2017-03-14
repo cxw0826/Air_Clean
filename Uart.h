@@ -11,15 +11,18 @@
 #include 	"STC15F2K60S2.h"
 #include	"intrins.h"
 
-#define		Sys_Clk				12000000L
-#define		BaudRate			115200
+
+#define		BaudRate				9600
 #define		NoneParity			0
-#define		OddParity			1
+#define		OddParity				1
 #define		EvenParity			2
 #define		MarkParity			3
 #define		SpaceParity			4
+#define		ParityBit				NoneParity
+#define		DataACC				ACC
+#define		ParityACC				P
+#define		Uart1Buff				SBUF
 
-#define		ParityBit			NoneParity
 
 
 

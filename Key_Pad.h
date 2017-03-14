@@ -34,6 +34,7 @@
 #define		Smart_Time_Low		1000*5	
 
 #define		Boot_Idle_Time		1000*5
+#define		Time_10Sec			1000*5	//定义定时时长
 
 //定义state_struct结构体
 struct state_struct
@@ -45,6 +46,17 @@ struct state_struct
 	uchar Move_State;		//移动检测状态
 } ;
 
+
+
+
+void	Init_Led(uchar	state);
+void	Light_Port_Ctrl(uchar state);
+void	PurificationPort_Ctrl(uchar state);
+void	FanSpeed_Ctrl(uchar state);
+void	Smart_Function(void);
+void	Move_Detect_Function(void);
+void	Fan_Led_Speed_Fun(void);
+void	Sys_State_Ctrl(void);
 
 
 
